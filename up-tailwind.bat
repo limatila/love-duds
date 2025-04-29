@@ -1,0 +1,1 @@
+npx @tailwindcss/cli -i ./src/style.css -o ./dist/bundle.css --watch
