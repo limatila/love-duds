@@ -1,1 +1,48 @@
+/* tailwind default */
 @import "tailwindcss";
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+body{
+    @apply flex justify-center items-center;
+    @apply max-w-full max-h-full;
+    @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl; 
+}
+
+/* center container and gif */
+main{ 
+    @apply flex flex-col justify-between items-center;
+    @apply h-[50%] w-fit;
+}
+.main-gif{
+    @apply w-[78%]
+}
+h2{
+    @apply text-4xl font-semibold
+}
+
+/* buttons */
+div.btn-container{
+    @apply flex;
+}
+
+button{
+    @apply border-2 border-white p-4 rounded-t-2xl;
+
+    @apply transition-transform duration-150;
+}
+.btn-accept{
+    @apply mr-6;
+    @apply bg-green-500;
+}
+.btn-denial{
+    @apply scale-75;
+    @apply bg-red-400;
+}
+
+/* Events */
+button:focus{
+    @apply scale-120
+}
+
+/* responsive alternatives (mobile to tablet only) */
