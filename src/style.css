@@ -14,11 +14,12 @@ main{
     @apply flex flex-col justify-between items-center;
     @apply h-[50%] w-fit;
 }
-.main-gif{
-    @apply w-[78%]
+#main-gif{
+    @apply w-[78%];
+    @apply rounded-2xl;
 }
 h2{
-    @apply text-4xl font-semibold
+    @apply text-2xl font-semibold
 }
 
 /* buttons */
@@ -41,8 +42,8 @@ button{
 }
 
 /* Events */
-button:focus{
+/* button:focus{
     @apply scale-120
-}
+} */
 
 /* responsive alternatives (mobile to tablet only) */
