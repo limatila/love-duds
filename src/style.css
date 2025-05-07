@@ -12,33 +12,64 @@ body{
 /* center container and gif */
 main{ 
     @apply flex flex-col justify-between items-center;
-    @apply h-[50%] w-fit;
+    @apply h-[65%] w-fit;
 }
 #main-gif{
     @apply w-[78%];
     @apply rounded-2xl;
+    @apply object-cover;
+    object-position: 70% 70%; 
 }
-h2{
-    @apply text-2xl font-semibold
+h2#client-message{
+    @apply text-2xl font-semibold text-center;
+    word-break: break-word;
 }
 
 /* buttons */
 div.btn-container{
     @apply flex;
+    @apply mt-4 mb-2
 }
 
 button{
     @apply border-2 border-white p-4 rounded-t-2xl;
-
-    @apply transition-transform duration-150;
+    @apply transition-transform duration-50;
+    @apply font-sans font-bold
 }
 .btn-accept{
     @apply mr-6;
     @apply bg-green-500;
+    @apply z-10;
 }
 .btn-denial{
     @apply scale-75;
     @apply bg-red-400;
+}
+
+/* Hearts */
+.heart {
+    @apply relative;
+    @apply w-[70px] h-[60px] mt-[50px] z-30
+}
+  
+.heart::before, .heart::after {
+    content: "";
+    @apply absolute;
+    @apply top-0 w-[40px] h-[60px] rounded-t-[50px];
+    @apply bg-red-500;
+    /* background: rgb(255, 0, 81); */
+}
+
+.heart::before {
+    @apply left-[40px];
+    @apply transform rotate-[-45deg];
+    transform-origin: 0 100%;
+}
+
+.heart::after {
+    @apply left-[0px];
+    @apply transform rotate-[45deg];
+    transform-origin: 100% 100%;
 }
 
 /* Events */

@@ -8,6 +8,7 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-red-500: oklch(63.7% 0.237 25.331);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-pink-200: oklch(89.9% 0.061 343.231);
     --color-white: #fff;
@@ -15,6 +16,7 @@
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --font-weight-semibold: 600;
+    --font-weight-bold: 700;
     --radius-2xl: 1rem;
     --radius-4xl: 2rem;
     --default-transition-duration: 150ms;
@@ -168,7 +170,55 @@
     display: none !important;
   }
 }
-@layer utilities;
+@layer utilities {
+  .absolute {
+    position: absolute;
+  }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
+  .block {
+    display: block;
+  }
+  .table {
+    display: table;
+  }
+  .border-collapse {
+    border-collapse: collapse;
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .resize {
+    resize: both;
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
+}
 *, ::after, ::before, ::backdrop, ::file-selector-button {
   box-sizing: border-box;
   margin: 0;
@@ -331,21 +381,27 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 50%;
+  height: 65%;
   width: fit-content;
 }
 #main-gif {
   width: 78%;
   border-radius: var(--radius-2xl);
+  object-fit: cover;
+  object-position: 70% 70%;
 }
-h2 {
+h2#client-message {
+  text-align: center;
   font-size: var(--text-2xl);
   line-height: var(--tw-leading, var(--text-2xl--line-height));
   --tw-font-weight: var(--font-weight-semibold);
   font-weight: var(--font-weight-semibold);
+  word-break: break-word;
 }
 div.btn-container {
   display: flex;
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 2);
 }
 button {
   border-top-left-radius: var(--radius-2xl);
@@ -357,12 +413,16 @@ button {
   transition-property: transform, translate, scale, rotate;
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
-  --tw-duration: 150ms;
-  transition-duration: 150ms;
+  --tw-duration: 50ms;
+  transition-duration: 50ms;
+  font-family: var(--font-sans);
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
 }
 .btn-accept {
   margin-right: calc(var(--spacing) * 6);
   background-color: var(--color-green-500);
+  z-index: 10;
 }
 .btn-denial {
   --tw-scale-x: 75%;
@@ -371,7 +431,61 @@ button {
   scale: var(--tw-scale-x) var(--tw-scale-y);
   background-color: var(--color-red-400);
 }
+.heart {
+  position: relative;
+  z-index: 30;
+  margin-top: 50px;
+  height: 60px;
+  width: 70px;
+}
+.heart::before, .heart::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * 0);
+  height: 60px;
+  width: 40px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  background-color: var(--color-red-500);
+}
+.heart::before {
+  left: 40px;
+  rotate: -45deg;
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  transform-origin: 0 100%;
+}
+.heart::after {
+  left: 0px;
+  rotate: 45deg;
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  transform-origin: 100% 100%;
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-outline-style {
   syntax: "*";
   inherits: false;
   initial-value: solid;
@@ -402,7 +516,13 @@ button {
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-border-style: solid;
+      --tw-outline-style: solid;
       --tw-font-weight: initial;
       --tw-duration: initial;
       --tw-scale-x: 1;
