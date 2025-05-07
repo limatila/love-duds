@@ -46,7 +46,7 @@ const clientMessages = {
 const acceptButtonDefaultSetup = {
     "scale": "1",
     "font-size": "1rem",
-    "margin-left": "1.5rem",
+    "margin-right": "1.5rem",
     "height": "auto",
     "width": "auto"
 }
@@ -106,6 +106,12 @@ function resetButtonStyles() {
     applyStyleObject(denialBtn, denialButtonDefaultSetup)
 }
 
+/**
+ * Generate denial flow over the stages
+ *
+ * @param {string} choice - can receive strings 'accept' or 'denial'
+ * @param {number} currentNumber - receives current stage number (pre-processed)
+ */
 const manageDenialProcess = (choice, currentNumber) => {
     if (choice === "accept"){ //reset to normal style
         resetButtonStyles();
@@ -144,6 +150,15 @@ const generateFlowState = (choice) => {
     }
 
     return flowStates[choice];
+}
+
+/**
+ * Finish accept flow - animation with floating hearts!
+ */
+
+//! NEXT: remove buttons, add hearts, increase text(?)
+const finishAcceptStage = () => {
+
 }
 
 /**
