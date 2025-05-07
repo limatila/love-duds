@@ -17,13 +17,13 @@ const imagePaths = {
         "stage-1": "./images/denial/stage-1.gif",
         "stage-2": "./images/denial/stage-2.gif",
         "stage-3": "./images/denial/stage-3.gif",
+        "stage-4": undefined,
+        "stage-5": undefined,
     },
     "accept": {
         "stage-1": "./images/accept/stage-1.gif",
         "stage-2": "./images/accept/stage-2.gif",
         "stage-3": "./images/accept/stage-3.gif",
-        "stage-4": undefined,
-        "stage-5": undefined,
     }
 }
 const clientMessages = {
@@ -40,8 +40,26 @@ const clientMessages = {
         "stage-3": "Te amo mais sua fofinha linda <3",
     }
 }
-const acceptButtonScales = ["1.7", "2.2"]
+
+//* button styles
+//default: for resetting purposes
+const acceptButtonDefaultSetup = {
+    "scale": "1",
+    "font-size": "1rem",
+    "margin-left": "1.5rem",
+    "height": "auto",
+    "width": "auto"
+}
+const denialButtonDefaultSetup = {
+    "display": "block",
+    "position": "inherit",
+    "top": "auto"
+}
+
+// for flow stages
+const acceptButtonScales = ["1.7", "2.2", "2.7"]
 const acceptButtonFinalSetup = {
+    "scale": "2.2",
     "margin": "0",
     "width": "100%",
     "height": "50%",
@@ -52,13 +70,62 @@ const denialButtonFinalSetup = {
     "top": "92%",
 }
 
+//applying those styles
+function applyStyleObject(element, styleObj) {
+    Object.keys(styleObj).forEach((key) => {
+        element.style[key] = styleObj[key];
+    });
+}
+
+function applyButtonFinalStyles() {
+    // main div
+    mainDiv.style["height"] = "100%";
+
+    // upper container
+    buttonsContainer.style["flex-direction"] = "column";
+    buttonsContainer.style["height"] = "50%";
+
+    // accept button
+    applyStyleObject(acceptBtn, acceptButtonFinalSetup)
+
+    // denial button
+    applyStyleObject(denialBtn, denialButtonFinalSetup)
+}
+
+function resetButtonStyles() {
+    //upper divs
+    mainDiv.style["height"] = "65%";
+
+    buttonsContainer.style["flex-direction"] = "row";
+    buttonsContainer.style["height"] = "auto";
+
+    // accept button
+    applyStyleObject(acceptBtn, acceptButtonDefaultSetup)
+
+    // denial button
+    applyStyleObject(denialBtn, denialButtonDefaultSetup)
+}
+
+const manageDenialProcess = (choice, currentNumber) => {
+    if (choice === "accept"){ //reset to normal style
+        resetButtonStyles();
+    }
+    if (choice === "denial" && currentNumber <= Object.keys(clientMessages[choice]).length - 2){
+        acceptBtn.style.scale = acceptButtonScales[currentNumber - 1] || acceptBtn.style.scale
+    } else if (choice === "denial" && currentNumber === Object.keys(clientMessages[choice]).length - 1) { //apply final stage style to:
+        applyButtonFinalStyles();
+    } else if (choice === "denial" && currentNumber >= Object.keys(clientMessages[choice]).length){
+        denialBtn.style.display = "none";
+    }
+}
+
 /**
- * Check flow state to generate future app stages
+ * Add flow state counter to generate future app stages
  *
  * @param {string} choice - can receive strings 'accept' or 'denial'
  * @returns {number}  
  */
-function generateFlowState(choice) {    
+const generateFlowState = (choice) => {
     if (!["denial", "accept"].includes(choice)){
         throw Error("Not allowed choice at generateFlowState" + choice)
     } 
@@ -79,37 +146,6 @@ function generateFlowState(choice) {
     return flowStates[choice];
 }
 
-function manageDenialProcess(choice, currentNumber) {
-    if (choice === "accept"){ //reset to normal style
-        acceptBtn.style.scale = "1"
-    }
-    if (choice === "denial" && currentNumber <= Object.keys(clientMessages[choice]).length - 2){
-        acceptBtn.style.scale = acceptButtonScales[currentNumber - 1]
-    } else if (choice === "denial" && currentNumber === Object.keys(clientMessages[choice]).length - 1) { //apply final stage style to:
-        // main div
-        mainDiv.style.height = "100%";
-
-        // upper container
-        buttonsContainer.style["flex-direction"] = "column";
-        buttonsContainer.style["height"] = "50%";
-
-        // accept button
-        Object.keys(acceptButtonFinalSetup).forEach((key) => {
-            acceptBtn.style[key] = acceptButtonFinalSetup[key];
-        })
-        
-        // denial button
-        Object.keys(denialButtonFinalSetup).forEach((key) => {
-            denialBtn.style[key] = denialButtonFinalSetup[key];
-        })
-        
-    }
-
-    if (choice === "denial" && currentNumber >= Object.keys(clientMessages[choice]).length - 1){
-        denialBtn.style.display = "none";
-    }
-}
-
 /**
  * Generate app flow
  *
@@ -125,7 +161,7 @@ const applyChoice = (choice) => {
     let stageToApply = "stage-" + currentNumber
     console.log(stageToApply)
     
-    //modify
+    //modify sources
     if(clientMessages[choice][stageToApply] !== undefined){
         let imageToApply = imagePaths[choice][stageToApply]
         let messageToSend = clientMessages[choice][stageToApply]
@@ -135,6 +171,10 @@ const applyChoice = (choice) => {
     }
 
     manageDenialProcess(choice, currentNumber)
+
+    if (choice === "accept" && currentNumber === Object.keys(clientMessages[choice]).length){
+        finishAcceptStage()
+    }
 
     //finally
     currentState = choice;
