@@ -1,5 +1,3 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: ["./src/style.css"],
-};
-    
+export const purge = { enabled: true, content: ['./dist/**/*.html']};
+export const content = ["./src/style.css"];
