@@ -24,6 +24,7 @@ const imagePaths = {
         "stage-1": "./images/accept/stage-1.gif",
         "stage-2": "./images/accept/stage-2.gif",
         "stage-3": "./images/accept/stage-3.gif",
+        "stage-4": "./images/accept/stage-4.jpg",
     }
 }
 const clientMessages = {
@@ -35,11 +36,13 @@ const clientMessages = {
         "stage-5": undefined,
     },
     "accept": {
-        "stage-1": "Quer dizer que você gosta muito de mi?",
-        "stage-2": "Sério?? muito mesmo?",
-        "stage-3": "Te amo mais sua fofinha linda <3",
+        "stage-1": "Tem certeza que você gosta de mi?",
+        "stage-3": "Mas será que você gosta muito?",
+        "stage-2": "Sério?? muito-muito-muito mesmo?",
+        "stage-4": "Te amo mais sua fofinha linda <3"
     }
 }
+const finalClientMessage = "test span"
 
 //* button styles
 //default: for resetting purposes
@@ -63,7 +66,7 @@ const acceptButtonFinalSetup = {
     "margin": "0",
     "width": "100%",
     "height": "50%",
-    "font-size": "1.9rem" 
+    "font-size": "1.9rem"
 }
 const denialButtonFinalSetup = {
     "position": "absolute",
@@ -156,8 +159,9 @@ const generateFlowState = (choice) => {
  * Finish accept flow - animation with floating hearts!
  */
 
-//! NEXT: remove buttons, add hearts, increase text(?)
+//! NEXT: remove buttons, add text, add hearts,
 const finishAcceptStage = () => {
+    
 
 }
 
