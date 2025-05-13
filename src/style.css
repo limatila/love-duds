@@ -7,14 +7,15 @@ body{
     @apply flex justify-center items-center;
     @apply max-w-full max-h-full;
     @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl; 
+    @apply overflow-hidden
 }
 
 /* center container and gif */
-main{ 
+div#main{ 
     @apply flex flex-col justify-between items-center;
     @apply h-[65%] w-fit;
 }
-#main-gif{
+img#main-gif{
     @apply w-[78%];
     @apply rounded-2xl;
     @apply object-cover;
@@ -28,13 +29,13 @@ h2#client-message{
 /* buttons */
 div.btn-container{
     @apply flex;
-    @apply mt-4 mb-2
+    @apply mt-4 mb-2;
 }
 
 button{
     @apply border-2 border-white p-4 rounded-t-2xl;
     @apply transition-transform duration-50;
-    @apply font-sans font-bold
+    @apply font-sans font-bold;
 }
 .btn-accept{
     @apply mr-6;
@@ -49,7 +50,8 @@ button{
 /* Hearts */
 .heart {
     @apply relative;
-    @apply w-[70px] h-[60px] mt-[50px] z-30
+    @apply w-[70px] h-[60px] mt-[50px] z-30;
+    @apply animate-[slide_2s_ease-in_infinite];
 }
   
 .heart::before, .heart::after {
@@ -72,9 +74,16 @@ button{
     transform-origin: 100% 100%;
 }
 
-/* Events */
-/* button:focus{
-    @apply scale-120
-} */
+/* Animations */
+@keyframes slide {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(100px); }
+    75%  { transform: translateX(-100px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes floatAround {
+    
+}
 
 /* responsive alternatives (mobile to tablet only) */

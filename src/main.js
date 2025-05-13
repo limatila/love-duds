@@ -1,6 +1,6 @@
 let gifElement = document.getElementById("main-gif");
 let messageElement = document.getElementById("client-message");
-let mainDiv = document.getElementsByTagName("main")[0];
+let mainDiv = document.getElementById("main");
 let buttonsContainer = document.getElementsByClassName("btn-container")[0];
 let acceptBtn = document.getElementsByClassName("btn-accept")[0];
 let denialBtn = document.getElementsByClassName("btn-denial")[0];
@@ -39,7 +39,7 @@ const clientMessages = {
         "stage-1": "Tem certeza que você gosta de mi?",
         "stage-3": "Mas será que você gosta muito?",
         "stage-2": "Sério?? muito-muito-muito mesmo?",
-        "stage-4": "Te amo mais sua fofinha linda <3"
+        "stage-4": "Te amo mais sua fofinha linda <3" //TODO: add more text
     }
 }
 const finalClientMessage = "test span"
@@ -56,7 +56,8 @@ const acceptButtonDefaultSetup = {
 const denialButtonDefaultSetup = {
     "display": "block",
     "position": "inherit",
-    "top": "auto"
+    "top": "auto",
+    "animation": "none"
 }
 
 // for flow stages
@@ -69,8 +70,9 @@ const acceptButtonFinalSetup = {
     "font-size": "1.9rem"
 }
 const denialButtonFinalSetup = {
-    "position": "absolute",
-    "top": "92%",
+    "position": "relative",
+    "top": "40%",
+    "animation": "slide 2s linear infinite"
 }
 
 //applying those styles
@@ -156,13 +158,24 @@ const generateFlowState = (choice) => {
 }
 
 /**
- * Finish accept flow - animation with floating hearts!
+ * Finish accept flow - finish flow with floating hearts animation!
  */
+const finishAcceptStage = async () => {
+    //remove choices
+    acceptBtn.remove()
+    denialBtn.remove()
 
-//! NEXT: remove buttons, add text, add hearts,
-const finishAcceptStage = () => {
-    
+    //spawn multiple floating hearts
+    let spawnHearts = () => {
+        let newHeart = document.createElement("div")
+        newHeart.className = "heart"
+        newHeart.style["animation"] = "slide 1s ease-in infinite"
 
+        mainDiv.appendChild(newHeart)
+    }
+
+    setInterval(spawnHearts, 800)
+    setInterval(spawnHearts, 1730)
 }
 
 /**
@@ -191,7 +204,7 @@ const applyChoice = (choice) => {
 
     manageDenialProcess(choice, currentNumber)
 
-    if (choice === "accept" && currentNumber === Object.keys(clientMessages[choice]).length){
+    if (choice === "accept" && currentNumber >= Object.keys(clientMessages[choice]).length){
         finishAcceptStage()
     }
 
