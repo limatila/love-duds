@@ -3,12 +3,12 @@
 @import "tailwindcss/preflight";
 @tailwind utilities;
 
-body{
-    @apply flex justify-center items-center;
-    @apply max-w-full max-h-full;
-    @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl; 
-    @apply overflow-hidden
-}
+body {
+    @apply flex flex-col justify-center items-center;
+    @apply h-[96vh]; /* ✅ this is the fix */
+    @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl;
+    @apply overflow-hidden;
+  }
 
 /* center container and gif */
 div#main{ 
@@ -49,9 +49,9 @@ button{
 
 /* Hearts */
 .heart {
-    @apply relative;
-    @apply w-[70px] h-[60px] mt-[50px] z-30;
-    @apply animate-[slide_2s_ease-in_infinite];
+    @apply absolute;
+    @apply w-[70px] h-[60px] z-30;
+    animation: slideOuter 1s ease-in-out infinite, float 30s linear 1, fade 2s infinite;
 }
   
 .heart::before, .heart::after {
@@ -75,6 +75,7 @@ button{
 }
 
 /* Animations */
+/* btn-denial */
 @keyframes slide {
     0%   { transform: translateX(0); }
     25%  { transform: translateX(100px); }
@@ -82,8 +83,42 @@ button{
     100% { transform: translateX(0); }
 }
 
-@keyframes floatAround {
-    
+/* heart */
+@keyframes fade {
+    0% {
+        opacity: 100%;
+    }
+    50% {
+        opacity: 45%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes slideOuter {
+    0%   { 
+        transform: translateX(0); 
+    }
+    25%  { 
+        transform: translateX(50px); 
+    }
+    75%  { 
+        transform: translateX(-50px); 
+    }
+    100% { 
+        transform: translateX(0); 
+    }
+}
+
+@keyframes float {
+    from { 
+        top: 110%;
+    }
+    to {
+        top: -20%;
+        display: none;
+    }
 }
 
 /* responsive alternatives (mobile to tablet only) */

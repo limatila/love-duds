@@ -1,7 +1,9 @@
-let gifElement = document.getElementById("main-gif");
-let messageElement = document.getElementById("client-message");
+// elements from document
+let bodyDiv = document.getElementsByTagName("body")[0];
 let mainDiv = document.getElementById("main");
 let buttonsContainer = document.getElementsByClassName("btn-container")[0];
+let gifElement = document.getElementById("main-gif");
+let messageElement = document.getElementById("client-message");
 let acceptBtn = document.getElementsByClassName("btn-accept")[0];
 let denialBtn = document.getElementsByClassName("btn-denial")[0];
 
@@ -165,17 +167,43 @@ const finishAcceptStage = async () => {
     acceptBtn.remove()
     denialBtn.remove()
 
+    //random number generators
+    let generateRandomScale = () => {
+        let generatedNumber = Math.random() * 2
+        if (generatedNumber < 0.7 || generatedNumber > 1.2) { 
+            return generateRandomScale() 
+        } else {
+            console.log(generatedNumber);
+             return generatedNumber
+        }
+    }
+    let generateRandomLeftPos = () => {
+        let generatedNumber = Math.round(Math.random() * 100)
+        if (generatedNumber < 20 || generatedNumber > 70) { 
+            return generateRandomLeftPos() 
+        } else {
+            console.log(generatedNumber);
+            return generatedNumber
+        }
+    }
+
     //spawn multiple floating hearts
     let spawnHearts = () => {
         let newHeart = document.createElement("div")
         newHeart.className = "heart"
-        newHeart.style["animation"] = "slide 1s ease-in infinite"
+        newHeart.style["position"] = "absolute"
+        newHeart.style["scale"] = generateRandomScale()
+        newHeart.style["left"] = generateRandomLeftPos() + "%"
 
-        mainDiv.appendChild(newHeart)
+        bodyDiv.appendChild(newHeart)
+        setTimeout(() => {
+            newHeart.remove()
+        }, 30050) // 30s = 30000ms
     }
 
-    setInterval(spawnHearts, 800)
-    setInterval(spawnHearts, 1730)
+    spawnHearts()
+    setInterval(spawnHearts, 1370)
+    setInterval(spawnHearts, 1650 * 2)
 }
 
 /**
@@ -202,8 +230,10 @@ const applyChoice = (choice) => {
         messageElement.innerText = messageToSend
     }
 
+    //denial ending
     manageDenialProcess(choice, currentNumber)
-
+    
+    //accept ending
     if (choice === "accept" && currentNumber >= Object.keys(clientMessages[choice]).length){
         finishAcceptStage()
     }
