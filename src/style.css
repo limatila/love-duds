@@ -6,7 +6,7 @@
 /* custom font */
 @font-face {
     font-family: cookiesFont;
-    src: url("../dist/fonts/Cookies.ttf") format('truetype');
+    src: url("./fonts/Cookies.ttf") format('truetype');
 }
 
 *{

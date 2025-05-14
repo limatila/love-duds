@@ -342,7 +342,7 @@ button, input:where([type='button'], [type='reset'], [type='submit']), ::file-se
 }
 @font-face {
   font-family: cookiesFont;
-  src: url("../dist/fonts/Cookies.ttf") format('truetype');
+  src: url("./fonts/Cookies.ttf") format('truetype');
 }
 * {
   box-sizing: border-box;
