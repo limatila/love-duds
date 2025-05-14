@@ -172,9 +172,6 @@
   }
 }
 @layer utilities {
-  .absolute {
-    position: absolute;
-  }
   .relative {
     position: relative;
   }
@@ -198,15 +195,6 @@
   }
   .block {
     display: block;
-  }
-  .h-full {
-    height: 100%;
-  }
-  .w-full {
-    width: 100%;
-  }
-  .overflow-hidden {
-    overflow: hidden;
   }
 }
 *, ::after, ::before, ::backdrop, ::file-selector-button {
@@ -441,6 +429,13 @@ button {
   --tw-scale-z: 75%;
   scale: var(--tw-scale-x) var(--tw-scale-y);
   background-color: oklch(0.76 0.16 20.81 / 0.79);
+}
+#heart-zone {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
 }
 .heartWrapper {
   position: absolute;

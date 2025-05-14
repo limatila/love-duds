@@ -68,6 +68,10 @@ button{
 }
 
 /* Hearts */
+#heart-zone{
+    @apply absolute w-full h-full overflow-hidden;
+    @apply pointer-events-none;
+}
 .heartWrapper{
     @apply absolute;
     @apply w-[70px] h-[60px] z-30;
