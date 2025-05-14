@@ -1,7 +1,3 @@
-//injecting vercel
-import { injectSpeedInsights } from '@vercel/speed-insights';
-injectSpeedInsights();
-
 // elements from document
 let bodyDiv = document.getElementsByTagName("body")[0];
 let mainDiv = document.getElementById("main");

@@ -23,4 +23,9 @@
     </body>
     
     <script src="../src/main.js"></script>
+    <!-- logging vercel's speed-insights -->
+    <script type="module">
+        import {injectSpeedInsights} from "../node_modules/@vercel/speed-insights/dist/index.mjs"
+        injectSpeedInsights()
+    </script>
 </html>
