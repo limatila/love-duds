@@ -192,7 +192,7 @@ const finishAcceptStage = async () => {
       }
 
     //spawn multiple floating hearts
-    let spawnHearts = () => {
+    let spawnHeart = () => {
         let newHeart = document.createElement("span")
         let newWrapper = document.createElement("div")
         newHeart.className = "heart"
@@ -212,9 +212,9 @@ const finishAcceptStage = async () => {
         }, 10 * (10 ** 3) - 80) // 30s = 30000ms, -80 to prevent faulty deletions
     }
 
-    spawnHearts()
-    setInterval(spawnHearts, 670)
-    setInterval(spawnHearts, 1350)
+    spawnHeart()
+    setInterval(spawnHeart, 670)
+    setInterval(spawnHeart, 960)
 }
 
 /**
