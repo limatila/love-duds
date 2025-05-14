@@ -3,7 +3,14 @@
 @import "tailwindcss/preflight";
 @tailwind utilities;
 
+/* custom font */
+@font-face {
+    font-family: cookiesFont;
+    src: url("../dist/fonts/Cookies.ttf") format('truetype');
+}
+
 body {
+    font-family: cookiesFont, 'Lucida Sans', Verdana, sans-serif;
     @apply flex flex-col justify-center items-center;
     @apply h-[96vh]; /* ✅ this is the fix */
     @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl;
@@ -22,7 +29,7 @@ img#main-gif{
     object-position: 70% 70%; 
 }
 h2#client-message{
-    @apply text-2xl font-semibold text-center;
+    @apply text-[1.4rem] font-light font-black text-center;
     word-break: break-word;
 }
 
@@ -33,27 +40,30 @@ div.btn-container{
 }
 
 button{
-    @apply border-2 border-white p-4 rounded-t-2xl;
+    @apply border-2 border-white p-4 rounded-2xl;
     @apply transition-transform duration-50;
     @apply font-sans font-bold;
 }
 .btn-accept{
     @apply mr-6;
-    @apply bg-green-500;
+    background-color: oklch(0.86 0.15 151.55);
     @apply z-10;
 }
 .btn-denial{
     @apply scale-75;
-    @apply bg-red-400;
+    background-color: oklch(0.76 0.16 20.81 / 0.79);
 }
 
 /* Hearts */
-.heart {
+.heartWrapper{
     @apply absolute;
     @apply w-[70px] h-[60px] z-30;
-    animation: slideOuter 1s ease-in-out infinite, float 30s linear 1, fade 2s infinite;
 }
-  
+.heart {
+    @apply relative;
+    @apply w-full h-full;
+    z-index: inherit;
+}
 .heart::before, .heart::after {
     content: "";
     @apply absolute;
@@ -96,7 +106,7 @@ button{
     }
 }
 
-@keyframes slideOuter {
+@keyframes slideSmall {
     0%   { 
         transform: translateX(0); 
     }
@@ -111,12 +121,32 @@ button{
     }
 }
 
-@keyframes float {
+/* heart float towards left or right */
+.leftFloater{
+    animation: slideSmall 2s ease-in-out infinite, floatLeft 10s linear 1, fade 2s infinite;
+}
+.rightFloater{
+    animation: slideSmall 2s ease-in-out infinite, floatRight 10s linear 1, fade 2s infinite;
+}
+
+@keyframes floatLeft {
     from { 
         top: 110%;
     }
     to {
         top: -20%;
+        left: -50%;
+        display: none;
+    }
+}
+
+@keyframes floatRight {
+    from { 
+        top: 110%;
+    }
+    to {
+        top: -20%;
+        left: 150%;
         display: none;
     }
 }

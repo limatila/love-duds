@@ -31,17 +31,17 @@ const imagePaths = {
 }
 const clientMessages = {
     "denial": {
-        "stage-1": "Pera, como assim você não gosta?",
+        "stage-1": "Pera, como assim vc nao gosta?",
         "stage-2": "Como assim?? assim vc me deixa triste",
-        "stage-3": "Para, você tá sendo mt ruim :(",
+        "stage-3": "Para, vc ta sendo mt ruim !! :(",
         "stage-4": undefined,
         "stage-5": undefined,
     },
     "accept": {
-        "stage-1": "Tem certeza que você gosta de mi?",
-        "stage-3": "Mas será que você gosta muito?",
-        "stage-2": "Sério?? muito-muito-muito mesmo?",
-        "stage-4": "Te amo mais sua fofinha linda <3" //TODO: add more text
+        "stage-1": "Tem certeza que vc gosta de mi?",
+        "stage-3": "Mas sera que vc gosta muito?",
+        "stage-2": "Serio?? muito-muito-muito mesmo?",
+        "stage-4": "Te amo mais sua fofinha linda <3"
     }
 }
 const finalClientMessage = "test span"
@@ -174,7 +174,7 @@ const finishAcceptStage = async () => {
             return generateRandomScale() 
         } else {
             console.log(generatedNumber);
-             return generatedNumber
+            return generatedNumber
         }
     }
     let generateRandomLeftPos = () => {
@@ -186,24 +186,34 @@ const finishAcceptStage = async () => {
             return generatedNumber
         }
     }
+    let generateRandomDirection = () => {
+        return Math.random() < 0.5 ? "leftFloater" : "rightFloater"
+      }
 
     //spawn multiple floating hearts
     let spawnHearts = () => {
-        let newHeart = document.createElement("div")
+        let newHeart = document.createElement("span")
+        let newWrapper = document.createElement("div")
         newHeart.className = "heart"
-        newHeart.style["position"] = "absolute"
-        newHeart.style["scale"] = generateRandomScale()
-        newHeart.style["left"] = generateRandomLeftPos() + "%"
+        newWrapper.className = "heartWrapper"
 
-        bodyDiv.appendChild(newHeart)
+        //apply random float, size, and middle pos in screen
+        newWrapper.classList.add(generateRandomDirection())
+        newWrapper.style["scale"] = generateRandomScale()
+        newWrapper.style["left"] = generateRandomLeftPos() + "%"
+
+        newWrapper.appendChild(newHeart)
+        bodyDiv.appendChild(newWrapper)
+
         setTimeout(() => {
+            newWrapper.remove()
             newHeart.remove()
-        }, 30050) // 30s = 30000ms
+        }, 10 * (10 ** 3)) // 30s = 30000ms
     }
 
     spawnHearts()
-    setInterval(spawnHearts, 1370)
-    setInterval(spawnHearts, 1650 * 2)
+    setInterval(spawnHearts, 670)
+    setInterval(spawnHearts, 1350)
 }
 
 /**
