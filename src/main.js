@@ -1,5 +1,6 @@
 // elements from document
 let bodyDiv = document.getElementsByTagName("body")[0];
+let heartZoneDiv = document.getElementById("heart-zone");
 let mainDiv = document.getElementById("main");
 let buttonsContainer = document.getElementsByClassName("btn-container")[0];
 let gifElement = document.getElementById("main-gif");
@@ -50,8 +51,7 @@ const finalClientMessage = "test span"
 //default: for resetting purposes
 const acceptButtonDefaultSetup = {
     "scale": "1",
-    "font-size": "1rem",
-    "margin-right": "1.5rem",
+    "font-size": "2.25rem",
     "height": "auto",
     "width": "auto"
 }
@@ -63,7 +63,7 @@ const denialButtonDefaultSetup = {
 }
 
 // for flow stages
-const acceptButtonScales = ["1.7", "2.2", "2.7"]
+const acceptButtonScales = ["1.5", "2.1", "2.4"]
 const acceptButtonFinalSetup = {
     "scale": "2.2",
     "margin": "0",
@@ -73,7 +73,7 @@ const acceptButtonFinalSetup = {
 }
 const denialButtonFinalSetup = {
     "position": "relative",
-    "top": "40%",
+    "top": "13%",
     "animation": "slide 2s linear infinite"
 }
 
@@ -127,6 +127,7 @@ const manageDenialProcess = (choice, currentNumber) => {
         acceptBtn.style.scale = acceptButtonScales[currentNumber - 1] || acceptBtn.style.scale
     } else if (choice === "denial" && currentNumber === Object.keys(clientMessages[choice]).length - 1) { //apply final stage style to:
         applyButtonFinalStyles();
+        messageElement.textContent = "";
     } else if (choice === "denial" && currentNumber >= Object.keys(clientMessages[choice]).length){
         denialBtn.style.display = "none";
     }
@@ -167,7 +168,7 @@ const finishAcceptStage = async () => {
     acceptBtn.remove()
     denialBtn.remove()
 
-    //random number generators
+    //random number generators for hearts
     let generateRandomScale = () => {
         let generatedNumber = Math.random() * 2
         if (generatedNumber < 0.7 || generatedNumber > 1.2) { 
@@ -203,12 +204,12 @@ const finishAcceptStage = async () => {
         newWrapper.style["left"] = generateRandomLeftPos() + "%"
 
         newWrapper.appendChild(newHeart)
-        bodyDiv.appendChild(newWrapper)
+        heartZoneDiv.appendChild(newWrapper)
 
         setTimeout(() => {
             newWrapper.remove()
             newHeart.remove()
-        }, 10 * (10 ** 3)) // 30s = 30000ms
+        }, 10 * (10 ** 3) - 80) // 30s = 30000ms, -80 to prevent faulty deletions
     }
 
     spawnHearts()

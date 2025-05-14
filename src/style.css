@@ -9,43 +9,56 @@
     src: url("../dist/fonts/Cookies.ttf") format('truetype');
 }
 
+*{
+    box-sizing: border-box
+}
+
+html{
+    @apply overflow-hidden;
+}
+
+html, body {
+    margin: 0;
+    height: 99%;
+    max-width: 100%;
+}
+
 body {
     font-family: cookiesFont, 'Lucida Sans', Verdana, sans-serif;
     @apply flex flex-col justify-center items-center;
-    @apply h-[96vh]; /* ✅ this is the fix */
-    @apply bg-pink-200 p-3 m-5 border-10 border-white rounded-4xl;
-    @apply overflow-hidden;
-  }
+    @apply bg-pink-200 m-7 border-16 border-white rounded-4xl;
+}
 
 /* center container and gif */
 div#main{ 
     @apply flex flex-col justify-between items-center;
-    @apply h-[65%] w-fit;
+    @apply h-[65%] w-full;
 }
 img#main-gif{
-    @apply w-[78%];
-    @apply rounded-2xl;
+    @apply w-[80%] h-[55%];
+    @apply rounded-4xl;
     @apply object-cover;
     object-position: 70% 70%; 
 }
 h2#client-message{
-    @apply text-[1.4rem] font-light font-black text-center;
+    @apply text-6xl font-light font-black text-center;
     word-break: break-word;
 }
 
 /* buttons */
 div.btn-container{
-    @apply flex;
+    @apply flex justify-around;
     @apply mt-4 mb-2;
 }
 
 button{
-    @apply border-2 border-white p-4 rounded-2xl;
+    @apply text-4xl pb-10 pt-10 pr-20 pl-20;
+    @apply border-2 border-white rounded-2xl;
     @apply transition-transform duration-50;
     @apply font-sans font-bold;
 }
 .btn-accept{
-    @apply mr-6;
+    /* @apply mr-6; */
     background-color: oklch(0.86 0.15 151.55);
     @apply z-10;
 }
@@ -88,8 +101,8 @@ button{
 /* btn-denial */
 @keyframes slide {
     0%   { transform: translateX(0); }
-    25%  { transform: translateX(100px); }
-    75%  { transform: translateX(-100px); }
+    25%  { transform: translateX(200px); }
+    75%  { transform: translateX(-200px); }
     100% { transform: translateX(0); }
 }
 
@@ -123,10 +136,10 @@ button{
 
 /* heart float towards left or right */
 .leftFloater{
-    animation: slideSmall 2s ease-in-out infinite, floatLeft 10s linear 1, fade 2s infinite;
+    animation: slideSmall 2s ease-in-out infinite, floatLeft 10s linear, fade 2s infinite;
 }
 .rightFloater{
-    animation: slideSmall 2s ease-in-out infinite, floatRight 10s linear 1, fade 2s infinite;
+    animation: slideSmall 2s ease-in-out infinite, floatRight 10s linear, fade 2s infinite;
 }
 
 @keyframes floatLeft {
